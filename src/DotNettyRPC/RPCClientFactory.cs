@@ -20,7 +20,7 @@ namespace Coldairarrow.DotNettyRPC
         /// <returns></returns>
         public static T GetClient<T>(string serverIp, int port) where T : class
         {
-            return GetClient<T>(serverIp, port, typeof(T).Name);
+            return GetClient<T>(serverIp, port, typeof(T).FullName);
         }
 
         /// <summary>

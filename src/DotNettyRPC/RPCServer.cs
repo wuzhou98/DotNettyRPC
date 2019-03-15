@@ -95,7 +95,7 @@ namespace Coldairarrow.DotNettyRPC
         /// <typeparam name="Service">服务实现</typeparam>
         public void RegisterService<IService, Service>() where Service : class, IService where IService : class
         {
-            RegisterService<IService, Service>(typeof(IService).Name);
+            RegisterService<IService, Service>(typeof(IService).FullName);
         }
 
         /// <summary>
@@ -109,10 +109,21 @@ namespace Coldairarrow.DotNettyRPC
             _serviceHandle.Add(serviceName, typeof(Service));
         }
 
-        /// <summary>
-        /// 开始运行服务
-        /// </summary>
-        public void Start()
+		/// <summary>
+		/// 注册服务,指定服务名
+		/// </summary>
+		/// <param name="serviceName">服务名</param>
+		/// <param name="serviceType">服务类型</param>
+		public void RegisterService(string serviceName, Type serviceType)
+        {
+            _serviceHandle.Add(serviceName, serviceType);
+        }
+
+
+		/// <summary>
+		/// 开始运行服务
+		/// </summary>
+		public void Start()
         {
             _serverChannel = _serverBootstrap.BindAsync(_port).Result;
         }
